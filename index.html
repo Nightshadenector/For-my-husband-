@@ -1,0 +1,199 @@
+# For-my-husband-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Journey & Countdown</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #0f0f12;
+      color: #e0d8e3;
+      font-family: 'Montserrat', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 650px;
+      width: 100%;
+      background: #18161f;
+      border: 1px solid #2a2536;
+      border-radius: 16px;
+      padding: 35px 25px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      text-align: center;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      color: #d4af37;
+      margin-bottom: 25px;
+      font-weight: 600;
+    }
+
+    .section {
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #2a2536;
+    }
+
+    .section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    h2 {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #9a88ad;
+      margin-bottom: 12px;
+    }
+
+    .timer {
+      font-size: 1.2rem;
+      color: #ffffff;
+      font-weight: 500;
+    }
+
+    .quote-box {
+      background: #110f17;
+      border-left: 3px solid #d4af37;
+      padding: 20px;
+      border-radius: 6px;
+      margin-top: 10px;
+    }
+
+    .quote-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-style: italic;
+      color: #f0e6f5;
+      line-height: 1.5;
+    }
+
+    .quote-author {
+      margin-top: 10px;
+      font-size: 0.85rem;
+      color: #9a88ad;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Meine Liebe & Nightshadenector</h1>
+
+    <!-- TOGETHER TIMER -->
+    <div class="section">
+      <h2>Time We’ve Been Together</h2>
+      <div id="together-timer" class="timer">Calculating...</div>
+    </div>
+
+    <!-- WEDDING COUNTDOWN -->
+    <div class="section">
+      <h2>Wedding Countdown (2036)</h2>
+      <div id="wedding-timer" class="timer">Calculating...</div>
+    </div>
+
+    <!-- DAILY ROMANTIC QUOTE -->
+    <div class="section">
+      <h2>Daily Love Note</h2>
+      <div class="quote-box">
+        <p id="quote-text" class="quote-text">"Loading..."</p>
+        <p id="quote-author" class="quote-author"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ==========================================
+    // 1. UPDATED DATES
+    // ==========================================
+    const togetherStartDate = new Date("2026-05-03T00:00:00"); 
+    const weddingDate = new Date("2036-05-03T00:00:00"); // Set to May 3, 2036 (Change month/day if you pick an exact date)       
+
+    // ==========================================
+    // 2. ROMANTIC QUOTES LIST (Rotates Daily)
+    // ==========================================
+    const quotes = [
+      { text: "Whatever our souls are made of, his and mine are the same.", author: "Emily Brontë" },
+      { text: "I carry your heart with me (I carry it in my heart).", author: "E.E. Cummings" },
+      { text: "You don't love someone for their looks, but because they sing a song only you can hear.", author: "Oscar Wilde" },
+      { text: "In all the world, there is no heart for me like yours. In all the world, there is no love for you like mine.", author: "Maya Angelou" },
+      { text: "If I had a flower for every time I thought of you... I could walk through my garden forever.", author: "Alfred Tennyson" },
+      { text: "I have waited for this opportunity to repeat to you once more my vow of everlasting love.", author: "Gabriel García Márquez" },
+      { text: "Storms may rise and shadows cover, yet my soul belongs to you.", author: "Dark Romance Quote" },
+      { text: "You are my heart, my life, my one and only thought.", author: "Arthur Conan Doyle" },
+      { text: "I would rather spend one lifetime with you, than face all the ages of this world alone.", author: "J.R.R. Tolkien" },
+      { text: "To love and be loved is to feel the sun from both sides.", author: "David Viscott" }
+    ];
+
+    // ==========================================
+    // 3. TIMERS & QUOTE LOGIC
+    // ==========================================
+    function updateTimers() {
+      const now = new Date();
+
+      // Together Time
+      const togetherDiff = now - togetherStartDate;
+      if (togetherDiff < 0) {
+        document.getElementById("together-timer").innerText = "Our journey begins soon!";
+      } else {
+        const togetherDays = Math.floor(togetherDiff / (1000 * 60 * 60 * 24));
+        const togetherHours = Math.floor((togetherDiff / (1000 * 60 * 60)) % 24);
+        const togetherMins = Math.floor((togetherDiff / 1000 / 60) % 60);
+        const togetherSecs = Math.floor((togetherDiff / 1000) % 60);
+
+        document.getElementById("together-timer").innerText = 
+          `${togetherDays} Days, ${togetherHours}h ${togetherMins}m ${togetherSecs}s`;
+      }
+
+      // Wedding Countdown
+      const weddingDiff = weddingDate - now;
+      if (weddingDiff <= 0) {
+        document.getElementById("wedding-timer").innerText = "The day has arrived!";
+      } else {
+        const weddingDays = Math.floor(weddingDiff / (1000 * 60 * 60 * 24));
+        const weddingHours = Math.floor((weddingDiff / (1000 * 60 * 60)) % 24);
+        const weddingMins = Math.floor((weddingDiff / 1000 / 60) % 60);
+        const weddingSecs = Math.floor((weddingDiff / 1000) % 60);
+
+        document.getElementById("wedding-timer").innerText = 
+          `${weddingDays} Days, ${weddingHours}h ${weddingMins}m ${weddingSecs}s`;
+      }
+    }
+
+    function updateDailyQuote() {
+      const now = new Date();
+      // Generates a unique day number to shift the quote every 24 hours
+      const dayIndex = Math.floor(now.getTime() / (1000 * 60 * 60 * 24));
+      const selectedQuote = quotes[dayIndex % quotes.length];
+
+      document.getElementById("quote-text").innerText = `"${selectedQuote.text}"`;
+      document.getElementById("quote-author").innerText = `— ${selectedQuote.author}`;
+    }
+
+    // Initialize
+    updateDailyQuote();
+    updateTimers();
+    setInterval(updateTimers, 1000);
+  </script>
+</body>
+</html>
